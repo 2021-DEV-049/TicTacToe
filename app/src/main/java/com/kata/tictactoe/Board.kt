@@ -32,4 +32,10 @@ class Board {
         }
         updatePlayerTurn()
     }
+
+    fun hasWinner(): Boolean {
+        return (cellsValue[0] == cellsValue[1]
+                && cellsValue[0] == cellsValue[2] && cellsValue[0] != "0"
+                )
+    }
 }
