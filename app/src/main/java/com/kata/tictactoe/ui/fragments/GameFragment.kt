@@ -42,6 +42,7 @@ class GameFragment : Fragment() {
         initializePlayerNames()
         observeViewModel()
         initializeRecyclerView()
+        addResetButtonClick()
     }
 
     private fun initializePlayerNames() {
@@ -83,6 +84,18 @@ class GameFragment : Fragment() {
         binding.gameRecyclerView.apply {
             adapter = gameAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
+        }
+    }
+
+    private fun addResetButtonClick() {
+        binding.resetBtn.setOnClickListener {
+            requireContext().alertDialog(
+                message = getString(R.string.reset_msg),
+                positiveText = getString(R.string.reset),
+                negativeText = getString(R.string.cancel_text)
+            ) {
+                resetToInitialState()
+            }
         }
     }
 

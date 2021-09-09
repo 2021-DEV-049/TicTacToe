@@ -10,4 +10,6 @@
     <string name="game_label">TicTacToe</string>
     <string name="reset">Reset Game</string>
     <string name="ok_btn_label">OK</string>
+    <string name="reset_msg">Are you sure want to reset your game, all your progress will be lost</string>
+    <string name="cancel_text">Cancel</string>
 </resources>
