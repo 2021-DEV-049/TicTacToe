@@ -3,11 +3,14 @@ package com.kata.tictactoe.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.kata.tictactoe.Board
 import com.kata.tictactoe.Board.Companion.INDEX_0
 import com.kata.tictactoe.Board.Companion.INDEX_8
 import com.kata.tictactoe.Board.Companion.VALUE_0
 import com.kata.tictactoe.utils.GameState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class GameViewModel(private val board: Board) : ViewModel() {
 
@@ -53,7 +56,10 @@ class GameViewModel(private val board: Board) : ViewModel() {
     }
 
     private fun postGameStateResult(message: String) {
-        _gameState.postValue(GameState.Result(message))
+        viewModelScope.launch {
+            delay(30L)
+            _gameState.postValue(GameState.Result(message))
+        }
     }
 
     fun resetBoard() {

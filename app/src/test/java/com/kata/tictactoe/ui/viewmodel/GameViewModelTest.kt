@@ -6,11 +6,19 @@ import com.google.common.truth.Truth.assertThat
 import com.kata.tictactoe.Board
 import com.kata.tictactoe.utils.GameState
 import io.mockk.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 
+@ExperimentalCoroutinesApi
 class GameViewModelTest {
 
     private val mockedBoard: Board = mockk()
@@ -18,13 +26,16 @@ class GameViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    private val dispatcher = TestCoroutineDispatcher()
+
     @Before
     fun before() {
         MockKAnnotations.init(this, relaxUnitFun = true)
+        Dispatchers.setMain(dispatcher)
     }
 
     @Test
-    fun should_update_live_data_when_board_is_updated() {
+    fun should_update_live_data_when_board_is_updated() = runBlocking {
         every { mockedBoard.getCurrentPlayerTurn() } returns 0
         every { mockedBoard.cellsValue } returns mutableListOf("X", "O")
         every { mockedBoard.updateCellsValue(any()) } returns Unit
@@ -37,6 +48,8 @@ class GameViewModelTest {
 
         viewModel.initializePlayerNames(player1 = "Player1", player2 = "Player2")
         viewModel.updateBoard(0)
+
+        dispatcher.advanceUntilIdle()
 
         verifyOrder {
             gameStateObserver.onChanged(GameState.InProgress(0, "X"))
@@ -56,4 +69,8 @@ class GameViewModelTest {
         assertThat(board.playerTurn).isEqualTo(0)
     }
 
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
 }
