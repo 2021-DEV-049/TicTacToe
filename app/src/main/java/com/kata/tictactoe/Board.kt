@@ -68,7 +68,7 @@ class Board {
     */
     private fun getVerticalCombination(): IntArray? {
         val verticalCombination =
-            listOf(intArrayOf(0, 3, 6))
+            listOf(intArrayOf(0, 3, 6), intArrayOf(1, 4, 7))
 
         return verticalCombination.firstOrNull {
             cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]
