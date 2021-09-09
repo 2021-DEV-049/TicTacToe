@@ -34,4 +34,21 @@ class BoardTest {
 
         assertThat(expectedResult).isEqualTo(result)
     }
+
+    @Test
+    fun initial_board_state_should_contain_zeros() {
+
+        val expectedValue = getInitialBoardState()
+
+        assertThat(expectedValue).isEqualTo(board.cellsValue)
+
+    }
+
+    private fun getInitialBoardState(): List<String> {
+        val gameBoard = mutableListOf<String>()
+        for (r in 0..8) {
+            gameBoard.add("0")
+        }
+        return gameBoard
+    }
 }
