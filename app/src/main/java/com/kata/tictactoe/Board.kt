@@ -36,19 +36,25 @@ class Board {
     fun hasWinner(): Boolean {
         var hasWinner = false
 
-        if (cellsValue[0] == cellsValue[1]
-            && cellsValue[0] == cellsValue[2] && cellsValue[0] != "0"
-        ) {
-            hasWinner = true
-        } else if (cellsValue[3] == cellsValue[4] &&
-            cellsValue[4] == cellsValue[5] && cellsValue[3] != "0"
-        ) {
-            hasWinner = true
-        } else if (cellsValue[6] == cellsValue[7] &&
-            cellsValue[6] == cellsValue[8] && cellsValue[6] != "0"
-        ) {
-            hasWinner = true
+        val horizontalCombination = getHorizontalCombination()
+        when {
+            horizontalCombination != null && horizontalCombination.isNotEmpty() -> {
+                hasWinner = true
+            }
         }
         return hasWinner
+    }
+
+    /*
+   * checks if any horizontal combinations is found from given cell combinations
+   * firstOrNull returns the array combination if a match is found
+   * */
+    private fun getHorizontalCombination(): IntArray? {
+        val horizontalCombinations =
+            listOf(intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8))
+        return horizontalCombinations.firstOrNull {
+            cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]
+                    && cellsValue[it[0]] != "0"
+        }
     }
 }
