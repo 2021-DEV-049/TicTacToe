@@ -63,7 +63,7 @@ class GameFragment : Fragment() {
     }
 
     private fun onItemClicked(position: Int) {
-
+        viewModel.updateBoard(position)
     }
 
     override fun onDestroy() {
