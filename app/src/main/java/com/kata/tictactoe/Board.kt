@@ -24,6 +24,9 @@ class Board {
     }
 
     fun updateCellsValue(position: Int) {
-        cellsValue[position] = "X"
+        if (getCurrentPlayerTurn() == 0)
+            cellsValue[position] = "X"
+        if (getCurrentPlayerTurn() == 1)
+            cellsValue[position] = "O"
     }
 }

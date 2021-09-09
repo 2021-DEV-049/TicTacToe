@@ -54,6 +54,17 @@ class BoardTest {
         assertThat(expectedResult).isEqualTo(result)
     }
 
+    @Test
+    fun test_second_value_in_the_board_should_be_set_to_O() {
+        val expectedResult = "O"
+
+        board.updatePlayerTurn()
+        board.updateCellsValue(1)
+        val result = board.cellsValue[1]
+
+        assertThat(expectedResult).isEqualTo(result)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {
