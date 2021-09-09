@@ -65,6 +65,17 @@ class BoardTest {
         assertThat(expectedResult).isEqualTo(result)
     }
 
+    @Test
+    fun test_if_alternate_value_is_set_for_players() {
+        val expectedResult = listOf("X", "O", "X", "O", "X", "O", "X", "O", "X")
+
+        for (i in 0..8) {
+            board.updateCellsValue(i)
+        }
+
+        assertThat(expectedResult).isEqualTo(board.cellsValue)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {
