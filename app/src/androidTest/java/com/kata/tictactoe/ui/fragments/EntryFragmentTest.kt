@@ -74,4 +74,37 @@ class EntryFragmentTest {
             }
         }
     }
+
+    @Test
+    fun should_display_snack_bar_error_message_when_one_of_the_field_is_empty() {
+        onScreen<EntryScreen> {
+            tilPlayer1 {
+                isDisplayed()
+                isEnabled()
+                hasHint(R.string.player1_hint)
+                edit {
+                    typeText("Dinesh")
+                    hasText("Dinesh")
+                }
+            }
+
+            closeSoftKeyboard()
+
+            playBtn {
+                isDisplayed()
+                isClickable()
+                hasText(R.string.entry_title_label)
+                click()
+            }
+
+            snackBar {
+                isDisplayed()
+                hasBackgroundColor(R.color.colorSnackBarError)
+                hasDescendant {
+                    withText(R.string.enter_all_fields)
+                }
+            }
+        }
+    }
+
 }
