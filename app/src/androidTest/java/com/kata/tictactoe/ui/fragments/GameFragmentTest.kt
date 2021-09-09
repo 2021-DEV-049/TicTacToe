@@ -83,6 +83,34 @@ class GameFragmentTest {
         }
     }
 
+    @Test
+    fun should_show_player_won_the_game_alert() {
+
+        onScreen<GameScreen> {
+            gameRecyclerView {
+                for (i in 0 until 7) {
+                    childAt<GameScreen.Item>(i) {
+                        itemView {
+                            click()
+                        }
+                    }
+                }
+            }
+            alertDialog {
+                isDisplayed()
+                message {
+                    isDisplayed()
+                    hasText("Name1 Won the game!")
+                }
+                positiveButton {
+                    isDisplayed()
+                    hasText(R.string.ok_btn_label)
+                    click()
+                }
+            }
+        }
+    }
+
     companion object {
         const val player1Name = "Name1"
         const val player2Name = "Name2"
