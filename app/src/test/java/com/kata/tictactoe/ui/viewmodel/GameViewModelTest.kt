@@ -2,6 +2,7 @@ package com.kata.tictactoe.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.google.common.truth.Truth.assertThat
 import com.kata.tictactoe.Board
 import com.kata.tictactoe.utils.GameState
 import io.mockk.*
@@ -42,4 +43,17 @@ class GameViewModelTest {
             gameStateObserver.onChanged(GameState.Result("Player1 Won the game!"))
         }
     }
+
+    @Test
+    fun should_reset_board_values_to_initial_state() {
+        val board = Board()
+        val viewModel = GameViewModel(board)
+
+        viewModel.resetBoard()
+
+        assertThat(board.cellsValue)
+            .isEqualTo(listOf("0", "0", "0", "0", "0", "0", "0", "0", "0"))
+        assertThat(board.playerTurn).isEqualTo(0)
+    }
+
 }

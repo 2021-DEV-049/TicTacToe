@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.kata.tictactoe.Board
+import com.kata.tictactoe.Board.Companion.INDEX_0
+import com.kata.tictactoe.Board.Companion.INDEX_8
+import com.kata.tictactoe.Board.Companion.VALUE_0
 import com.kata.tictactoe.utils.GameState
 
 class GameViewModel(private val board: Board) : ViewModel() {
@@ -51,6 +54,14 @@ class GameViewModel(private val board: Board) : ViewModel() {
 
     private fun postGameStateResult(message: String) {
         _gameState.postValue(GameState.Result(message))
+    }
+
+    fun resetBoard() {
+        board.cellsValue.clear()
+        for (i in INDEX_0..INDEX_8) {
+            board.cellsValue.add(VALUE_0)
+        }
+        board.playerTurn = INDEX_0
     }
 
     companion object {
