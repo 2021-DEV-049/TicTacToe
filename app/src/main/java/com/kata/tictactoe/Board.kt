@@ -7,4 +7,11 @@ class Board {
     fun getCurrentPlayerTurn(): Int {
         return playerTurn
     }
+
+    fun updatePlayerTurn() {
+        if (playerTurn == 0)
+            playerTurn++
+        else
+            playerTurn = 0
+    }
 }

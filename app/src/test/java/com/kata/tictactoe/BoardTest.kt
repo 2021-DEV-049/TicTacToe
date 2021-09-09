@@ -24,4 +24,14 @@ class BoardTest {
 
         assertThat(expectedResult).isEqualTo(result)
     }
+
+    @Test
+    fun test_if_the_turn_belongs_to_player_2() {
+        val expectedResult = 1
+
+        board.updatePlayerTurn()
+        val result = board.getCurrentPlayerTurn()
+
+        assertThat(expectedResult).isEqualTo(result)
+    }
 }
