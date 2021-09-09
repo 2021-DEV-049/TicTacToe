@@ -34,8 +34,17 @@ class Board {
     }
 
     fun hasWinner(): Boolean {
-        return (cellsValue[0] == cellsValue[1]
-                && cellsValue[0] == cellsValue[2] && cellsValue[0] != "0"
-                )
+        var hasWinner = false
+
+        if (cellsValue[0] == cellsValue[1]
+            && cellsValue[0] == cellsValue[2] && cellsValue[0] != "0"
+        ) {
+            hasWinner = true
+        } else if (cellsValue[3] == cellsValue[4] &&
+            cellsValue[4] == cellsValue[5] && cellsValue[3] != "0"
+        ) {
+            hasWinner = true
+        }
+        return hasWinner
     }
 }
