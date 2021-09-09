@@ -6,4 +6,6 @@
     <string name="player1_hint" tools:ignore="Typos">player1</string>
     <string name="player2_hint">player2</string>
     <string name="enter_all_fields">Please enter all the fields</string>
+    <string name="entry">Entry</string>
+    <string name="game_label">TicTacToe</string>
 </resources>
