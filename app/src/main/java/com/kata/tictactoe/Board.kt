@@ -44,6 +44,10 @@ class Board {
             cellsValue[4] == cellsValue[5] && cellsValue[3] != "0"
         ) {
             hasWinner = true
+        } else if (cellsValue[6] == cellsValue[7] &&
+            cellsValue[6] == cellsValue[8] && cellsValue[6] != "0"
+        ) {
+            hasWinner = true
         }
         return hasWinner
     }

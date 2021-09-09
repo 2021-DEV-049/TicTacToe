@@ -161,6 +161,26 @@ class BoardTest {
         assertThat(expectedResult).isEqualTo(winner)
     }
 
+    /* combination
+      O O 0
+      0 0 0
+      X X X
+     */
+    @Test
+    fun test_if_player1_can_win_if_third_horizontal_combination_is_found() {
+        val expectedResult = true
+
+        board.updateCellsValue(6)
+        board.updateCellsValue(0)
+        board.updateCellsValue(7)
+        board.updateCellsValue(1)
+        board.updateCellsValue(8)
+
+        val winner = board.hasWinner()
+
+        assertThat(expectedResult).isEqualTo(winner)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {
