@@ -7,8 +7,8 @@ class Board {
     var cellsValue = mutableListOf<String>()
 
     init {
-        for (r in 0..8) {
-            cellsValue.add("0")
+        for (r in INDEX_0..INDEX_8) {
+            cellsValue.add(VALUE_0)
         }
     }
 
@@ -17,18 +17,18 @@ class Board {
     }
 
     fun updatePlayerTurn() {
-        if (playerTurn == 0)
+        if (playerTurn == INDEX_0)
             playerTurn++
         else
-            playerTurn = 0
+            playerTurn = INDEX_0
     }
 
     fun updateCellsValue(position: Int) {
-        if (getCurrentPlayerTurn() == 0) {
-            cellsValue[position] = "X"
+        if (getCurrentPlayerTurn() == INDEX_0) {
+            cellsValue[position] = VALUE_X
         }
-        if (getCurrentPlayerTurn() == 1) {
-            cellsValue[position] = "O"
+        if (getCurrentPlayerTurn() == INDEX_1) {
+            cellsValue[position] = VALUE_O
         }
         updatePlayerTurn()
     }
@@ -52,16 +52,27 @@ class Board {
             intArrayOf(0, 4, 8), intArrayOf(2, 4, 6)
         )
         return winningCombinations.firstOrNull {
-            cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]
-                    && cellsValue[it[0]] != "0"
+            cellsValue[it[INDEX_0]] == cellsValue[it[INDEX_1]]
+                    && cellsValue[it[INDEX_0]] == cellsValue[it[INDEX_2]]
+                    && cellsValue[it[0]] != VALUE_0
         }
     }
 
     fun hasATie(): Boolean {
         for (cell in cellsValue) {
-            if (cell.isEmpty() || cell == "0")
+            if (cell.isEmpty() || cell == VALUE_0)
                 return false
         }
         return true
+    }
+
+    companion object {
+        const val VALUE_0 = "0"
+        const val VALUE_X = "X"
+        const val VALUE_O = "O"
+        const val INDEX_0 = 0
+        const val INDEX_1 = 1
+        const val INDEX_2 = 2
+        const val INDEX_8 = 8
     }
 }
