@@ -37,8 +37,13 @@ class Board {
         var hasWinner = false
 
         val horizontalCombination = getHorizontalCombination()
+        val verticalCombination = getVerticalCombination()
+
         when {
             horizontalCombination != null && horizontalCombination.isNotEmpty() -> {
+                hasWinner = true
+            }
+            verticalCombination != null && verticalCombination.isNotEmpty() -> {
                 hasWinner = true
             }
         }
@@ -53,6 +58,19 @@ class Board {
         val horizontalCombinations =
             listOf(intArrayOf(0, 1, 2), intArrayOf(3, 4, 5), intArrayOf(6, 7, 8))
         return horizontalCombinations.firstOrNull {
+            cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]
+                    && cellsValue[it[0]] != "0"
+        }
+    }
+
+    /*
+    * checks if any vertical combinations is found from given cell combinations
+    */
+    private fun getVerticalCombination(): IntArray? {
+        val verticalCombination =
+            listOf(intArrayOf(0, 3, 6))
+
+        return verticalCombination.firstOrNull {
             cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]
                     && cellsValue[it[0]] != "0"
         }
