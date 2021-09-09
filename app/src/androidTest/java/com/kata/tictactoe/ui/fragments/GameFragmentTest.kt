@@ -56,10 +56,22 @@ class GameFragmentTest {
         }
     }
 
+    @Test
+    fun should_display_recycler_view_with_expected_item_count() {
+
+        onScreen<GameScreen> {
+            gameRecyclerView {
+                isDisplayed()
+                hasSize(total_cells)
+            }
+        }
+    }
+
     companion object {
         const val player1Name = "Name1"
         const val player2Name = "Name2"
         const val player_1_name_key = "player1Name"
         const val player_2_name_key = "player2Name"
+        const val total_cells = 9
     }
 }
