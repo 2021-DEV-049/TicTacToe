@@ -22,4 +22,8 @@ class Board {
         else
             playerTurn = 0
     }
+
+    fun updateCellsValue(position: Int) {
+        cellsValue[position] = "X"
+    }
 }

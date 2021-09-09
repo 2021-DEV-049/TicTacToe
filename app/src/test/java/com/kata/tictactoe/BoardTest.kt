@@ -44,6 +44,16 @@ class BoardTest {
 
     }
 
+    @Test
+    fun test_first_value_in_the_board_should_be_set_to_X() {
+        val expectedResult = "X"
+
+        board.updateCellsValue(0)
+        val result = board.cellsValue[0]
+
+        assertThat(expectedResult).isEqualTo(result)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {
