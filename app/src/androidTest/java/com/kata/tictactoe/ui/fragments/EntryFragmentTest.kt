@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
+import com.google.common.truth.Truth.assertThat
 import com.kata.tictactoe.R
 import com.kata.tictactoe.screen.EntryScreen
 import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
@@ -107,4 +108,46 @@ class EntryFragmentTest {
         }
     }
 
+    @Test
+    fun should_navigate_to_next_screen_when_all_fields_are_valid() {
+        onScreen<EntryScreen> {
+            headerLabel {
+                isDisplayed()
+                hasText(R.string.entry_title_label)
+            }
+
+            descriptionLabel {
+                isDisplayed()
+                hasText(R.string.enter_your_name)
+            }
+
+            tilPlayer1 {
+                isDisplayed()
+                isEnabled()
+                hasHint(R.string.player1_hint)
+                edit {
+                    typeText("Dinesh")
+                    hasText("Dinesh")
+                }
+            }
+
+            tilPlayer2 {
+                isDisplayed()
+                isEnabled()
+                hasHint(R.string.player2_hint)
+                edit {
+                    typeText("Logan")
+                    hasText("Logan")
+                }
+            }
+
+            playBtn {
+                isDisplayed()
+                isClickable()
+                hasText(R.string.entry_title_label)
+                click()
+            }
+        }
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.gameFragment)
+    }
 }
