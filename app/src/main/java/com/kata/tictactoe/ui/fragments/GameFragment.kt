@@ -6,7 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.kata.tictactoe.R
+import androidx.recyclerview.widget.GridLayoutManager
+import com.kata.tictactoe.adapter.GameAdapter
 import com.kata.tictactoe.databinding.FragmentGameBinding
 import com.kata.tictactoe.ui.viewmodel.GameViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,6 +19,10 @@ class GameFragment : Fragment() {
 
     private val args: GameFragmentArgs by navArgs()
     private val viewModel: GameViewModel by viewModel()
+
+    private val gameAdapter: GameAdapter by lazy {
+        GameAdapter()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +36,7 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializePlayerNames()
         observeViewModel()
+        initializeRecyclerView()
     }
 
     private fun initializePlayerNames() {
@@ -47,6 +53,12 @@ class GameFragment : Fragment() {
         }
     }
 
+    private fun initializeRecyclerView() {
+        binding.gameRecyclerView.apply {
+            adapter = gameAdapter
+            layoutManager = GridLayoutManager(requireContext(), 3)
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
