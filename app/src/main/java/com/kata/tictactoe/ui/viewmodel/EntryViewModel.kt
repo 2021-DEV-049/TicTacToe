@@ -1,13 +1,12 @@
 package com.kata.tictactoe.ui.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.kata.tictactoe.utils.SingleLiveEvent
 
 class EntryViewModel : ViewModel() {
 
-    private var _areFieldsValid = MutableLiveData<Boolean>()
-    val areFieldsValid: LiveData<Boolean> = _areFieldsValid
+    private var _areFieldsValid = SingleLiveEvent<Boolean>()
+    val areFieldsValid get() = _areFieldsValid
 
     fun checkIfFieldsAreValid(player1Name: String, player2Name: String) {
 
