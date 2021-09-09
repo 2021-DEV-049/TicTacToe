@@ -67,6 +67,22 @@ class GameFragmentTest {
         }
     }
 
+    @Test
+    fun recycler_view_items_should_be_clickable() {
+        onScreen<GameScreen> {
+            gameRecyclerView {
+                for (i in 0 until total_cells) {
+                    childAt<GameScreen.Item>(i) {
+                        itemView {
+                            isEnabled()
+                            isClickable()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     companion object {
         const val player1Name = "Name1"
         const val player2Name = "Name2"
