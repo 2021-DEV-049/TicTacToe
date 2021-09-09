@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.kata.tictactoe.R
 import com.kata.tictactoe.adapter.GameAdapter
 import com.kata.tictactoe.databinding.FragmentGameBinding
 import com.kata.tictactoe.ui.viewmodel.GameViewModel
+import com.kata.tictactoe.utils.GameState
+import com.kata.tictactoe.utils.alertDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameFragment : Fragment() {
@@ -47,10 +50,26 @@ class GameFragment : Fragment() {
 
         binding.player1Name.text = player1
         binding.player2Name.text = player2
+        viewModel.initializePlayerNames(player1, player2)
     }
 
     private fun observeViewModel() {
-        viewModel.gameState.observe(viewLifecycleOwner) {
+        viewModel.gameState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is GameState.InProgress -> gameAdapter.updateGameBoardData(
+                    state.cellPosition,
+                    state.cellValue
+                )
+                is GameState.Result -> showAlert(state.message)
+            }
+        }
+    }
+
+    private fun showAlert(message: String) {
+        requireContext().alertDialog(
+            message = message,
+            positiveText = getString(R.string.ok_btn_label)
+        ) {
 
         }
     }
