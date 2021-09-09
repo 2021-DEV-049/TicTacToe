@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kata.tictactoe.R
@@ -39,6 +41,7 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         initializePlayerNames()
         observeViewModel()
         initializeRecyclerView()
@@ -109,6 +112,12 @@ class GameFragment : Fragment() {
 
     private fun onItemClicked(position: Int) {
         viewModel.updateBoard(position)
+    }
+
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            findNavController().popBackStack()
+        }
     }
 
     override fun onDestroy() {
