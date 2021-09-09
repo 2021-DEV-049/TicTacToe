@@ -22,4 +22,13 @@ class EntryViewModelTest {
 
         assertThat(result).isFalse()
     }
+
+    @Test
+    fun test_should_return_true_if_all_the_fields_are_filled() {
+        viewModel.checkIfFieldsAreValid("Player1", "Player2")
+
+        val result = viewModel.areFieldsValid.getOrAwaitValue()
+
+        assertThat(result).isTrue()
+    }
 }
