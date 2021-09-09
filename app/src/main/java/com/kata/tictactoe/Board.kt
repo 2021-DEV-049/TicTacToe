@@ -85,7 +85,7 @@ class Board {
    */
     private fun getDiagonalCombination(): IntArray? {
         val diagonalCombination =
-            listOf(intArrayOf(0, 4, 8))
+            listOf(intArrayOf(0, 4, 8), intArrayOf(2, 4, 6))
 
         return diagonalCombination.firstOrNull {
             cellsValue[it[0]] == cellsValue[it[1]] && cellsValue[it[0]] == cellsValue[it[2]]

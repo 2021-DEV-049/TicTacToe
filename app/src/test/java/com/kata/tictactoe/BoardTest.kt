@@ -366,6 +366,26 @@ class BoardTest {
         assertThat(expectedResult).isEqualTo(winner)
     }
 
+    /* combination
+   O O X
+   0 X 0
+   X 0 0
+   */
+    @Test
+    fun test_if_player1_can_win_if_right_diagonal_combination_is_found() {
+        val expectedResult = true
+
+        board.updateCellsValue(2)
+        board.updateCellsValue(0)
+        board.updateCellsValue(4)
+        board.updateCellsValue(1)
+        board.updateCellsValue(6)
+
+        val winner = board.hasWinner()
+
+        assertThat(expectedResult).isEqualTo(winner)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {
