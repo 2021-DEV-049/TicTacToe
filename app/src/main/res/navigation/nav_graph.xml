@@ -9,10 +9,21 @@
         android:id="@+id/entryFragment"
         android:name="com.kata.tictactoe.ui.fragments.EntryFragment"
         android:label="fragment_entry"
-        tools:layout="@layout/fragment_entry" />
+        tools:layout="@layout/fragment_entry" >
+        <action
+            android:id="@+id/action_entryFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.kata.tictactoe.ui.fragments.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <argument
+            android:name="player1Name"
+            app:argType="string" />
+        <argument
+            android:name="player2Name"
+            app:argType="string" />
+    </fragment>
 </navigation>
