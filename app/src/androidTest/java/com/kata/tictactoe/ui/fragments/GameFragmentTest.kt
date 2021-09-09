@@ -111,6 +111,51 @@ class GameFragmentTest {
         }
     }
 
+    @Test
+    fun should_show_alert_dialog_when_reset_btn_is_clicked() {
+        onScreen<GameScreen> {
+            gameRecyclerView {
+                for (i in 0 until 5) {
+                    childAt<GameScreen.Item>(i) {
+                        itemView {
+                            click()
+                        }
+                    }
+                }
+            }
+            resetBtn {
+                isDisplayed()
+                isEnabled()
+                isClickable()
+                hasText(R.string.reset)
+                click()
+            }
+
+            alertDialog {
+                isDisplayed()
+                message {
+                    isDisplayed()
+                    hasText(R.string.reset_msg)
+                }
+                positiveButton {
+                    isDisplayed()
+                    hasText(R.string.reset)
+                    click()
+                }
+            }
+            gameRecyclerView {
+                for (i in 0 until total_cells) {
+                    childAt<GameScreen.Item>(i) {
+                        itemView {
+                            hasEmptyText()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     companion object {
         const val player1Name = "Name1"
         const val player2Name = "Name2"
