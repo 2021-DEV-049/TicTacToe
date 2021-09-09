@@ -407,6 +407,30 @@ class BoardTest {
         assertThat(expectedResult).isEqualTo(winner)
     }
 
+    /* combination
+    X O X
+    X X O
+    O X O
+    */
+    @Test
+    fun should_return_the_game_is_tie_if_all_cells_are_filled_and_no_winning_combinations_found() {
+        val expectedResult = true
+
+        board.updateCellsValue(0)
+        board.updateCellsValue(1)
+        board.updateCellsValue(2)
+        board.updateCellsValue(5)
+        board.updateCellsValue(3)
+        board.updateCellsValue(6)
+        board.updateCellsValue(4)
+        board.updateCellsValue(8)
+        board.updateCellsValue(7)
+
+        val result = board.hasATie()
+
+        assertThat(expectedResult).isEqualTo(result)
+    }
+
     private fun getInitialBoardState(): List<String> {
         val gameBoard = mutableListOf<String>()
         for (r in 0..8) {

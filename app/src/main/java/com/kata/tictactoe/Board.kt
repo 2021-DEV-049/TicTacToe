@@ -56,4 +56,12 @@ class Board {
                     && cellsValue[it[0]] != "0"
         }
     }
+
+    fun hasATie(): Boolean {
+        for (cell in cellsValue) {
+            if (cell.isEmpty() || cell == "0")
+                return false
+        }
+        return true
+    }
 }
