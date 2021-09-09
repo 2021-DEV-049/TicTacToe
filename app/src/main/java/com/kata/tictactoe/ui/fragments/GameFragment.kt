@@ -21,7 +21,9 @@ class GameFragment : Fragment() {
     private val viewModel: GameViewModel by viewModel()
 
     private val gameAdapter: GameAdapter by lazy {
-        GameAdapter()
+        GameAdapter { position ->
+            onItemClicked(position)
+        }
     }
 
     override fun onCreateView(
@@ -58,6 +60,10 @@ class GameFragment : Fragment() {
             adapter = gameAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
         }
+    }
+
+    private fun onItemClicked(position: Int) {
+
     }
 
     override fun onDestroy() {

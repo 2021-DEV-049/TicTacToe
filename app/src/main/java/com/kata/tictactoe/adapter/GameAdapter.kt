@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kata.tictactoe.databinding.RecyclerItemLayoutBinding
 
-class GameAdapter :
+class GameAdapter(val onItemClicked: (Int) -> Unit) :
     RecyclerView.Adapter<GameAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -18,7 +18,7 @@ class GameAdapter :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(position)
     }
 
     override fun getItemCount() = TOTAL_CELL_COUNT
@@ -26,8 +26,12 @@ class GameAdapter :
 
     inner class MyViewHolder(private val binding: RecyclerItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
-
+        fun bind(position: Int) {
+            binding.itemBtn.apply {
+                setOnClickListener {
+                    onItemClicked(position)
+                }
+            }
         }
     }
 
