@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.kata.tictactoe.R
 import com.kata.tictactoe.databinding.FragmentGameBinding
+import com.kata.tictactoe.ui.viewmodel.GameViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GameFragment : Fragment() {
 
@@ -15,6 +17,8 @@ class GameFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: GameFragmentArgs by navArgs()
+    private val viewModel: GameViewModel by viewModel()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +30,7 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializePlayerNames()
+        observeViewModel()
     }
 
     private fun initializePlayerNames() {
@@ -35,6 +40,13 @@ class GameFragment : Fragment() {
         binding.player1Name.text = player1
         binding.player2Name.text = player2
     }
+
+    private fun observeViewModel() {
+        viewModel.gameState.observe(viewLifecycleOwner) {
+
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
