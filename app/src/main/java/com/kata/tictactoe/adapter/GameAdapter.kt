@@ -3,6 +3,8 @@ package com.kata.tictactoe.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.kata.tictactoe.Board.Companion.INDEX_0
+import com.kata.tictactoe.Board.Companion.INDEX_8
 import com.kata.tictactoe.databinding.RecyclerItemLayoutBinding
 
 class GameAdapter(val onItemClicked: (Int) -> Unit) :
@@ -28,6 +30,13 @@ class GameAdapter(val onItemClicked: (Int) -> Unit) :
     fun updateGameBoardData(position: Int, newCellValue: String) {
         cellValue = newCellValue
         notifyItemChanged(position, cellValue)
+    }
+
+    fun clearCells() {
+        cellValue = ""
+        for (i in INDEX_0..INDEX_8) {
+            notifyItemChanged(i, cellValue)
+        }
     }
 
     inner class MyViewHolder(private val binding: RecyclerItemLayoutBinding) :

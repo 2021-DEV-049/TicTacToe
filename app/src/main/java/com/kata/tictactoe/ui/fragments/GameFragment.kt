@@ -70,8 +70,13 @@ class GameFragment : Fragment() {
             message = message,
             positiveText = getString(R.string.ok_btn_label)
         ) {
-
+            resetToInitialState()
         }
+    }
+
+    private fun resetToInitialState() {
+        viewModel.resetBoard()
+        gameAdapter.clearCells()
     }
 
     private fun initializeRecyclerView() {
