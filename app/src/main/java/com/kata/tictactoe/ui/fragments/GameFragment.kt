@@ -57,13 +57,20 @@ class GameFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.gameState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is GameState.InProgress -> gameAdapter.updateGameBoardData(
-                    state.cellPosition,
-                    state.cellValue
-                )
+                is GameState.InProgress -> {
+                    gameAdapter.updateGameBoardData(
+                        state.cellPosition,
+                        state.cellValue
+                    )
+                    updateResetButtonVisibility(View.VISIBLE)
+                }
                 is GameState.Result -> showAlert(state.message)
             }
         }
+    }
+
+    private fun updateResetButtonVisibility(viewVisibility: Int) {
+        binding.resetBtn.visibility = viewVisibility
     }
 
     private fun showAlert(message: String) {
@@ -78,6 +85,7 @@ class GameFragment : Fragment() {
     private fun resetToInitialState() {
         viewModel.resetBoard()
         gameAdapter.clearCells()
+        updateResetButtonVisibility(View.GONE)
     }
 
     private fun initializeRecyclerView() {
