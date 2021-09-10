@@ -52,8 +52,8 @@ class EntryFragmentTest {
                 isEnabled()
                 hasHint(R.string.player1_hint)
                 edit {
-                    typeText("Name1")
-                    hasText("Name1")
+                    typeText(name1)
+                    hasText(name1)
                 }
             }
 
@@ -62,8 +62,8 @@ class EntryFragmentTest {
                 isEnabled()
                 hasHint(R.string.player2_hint)
                 edit {
-                    typeText("Name2")
-                    hasText("Name2")
+                    typeText(name2)
+                    hasText(name2)
                 }
             }
 
@@ -84,8 +84,8 @@ class EntryFragmentTest {
                 isEnabled()
                 hasHint(R.string.player1_hint)
                 edit {
-                    typeText("Dinesh")
-                    hasText("Dinesh")
+                    typeText(name1)
+                    hasText(name1)
                 }
             }
 
@@ -126,8 +126,8 @@ class EntryFragmentTest {
                 isEnabled()
                 hasHint(R.string.player1_hint)
                 edit {
-                    typeText("Dinesh")
-                    hasText("Dinesh")
+                    typeText(name1)
+                    hasText(name1)
                 }
             }
 
@@ -136,8 +136,8 @@ class EntryFragmentTest {
                 isEnabled()
                 hasHint(R.string.player2_hint)
                 edit {
-                    typeText("Logan")
-                    hasText("Logan")
+                    typeText(name2)
+                    hasText(name2)
                 }
             }
 
@@ -167,5 +167,10 @@ class EntryFragmentTest {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val name1 = "Name1"
+        private const val name2 = "Name2"
     }
 }
