@@ -11,10 +11,18 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.kata.tictactoe.R
 import com.kata.tictactoe.screen.GameScreen
 import io.github.kakaocup.kakao.screen.Screen.Companion.onScreen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4ClassRunner::class)
 class GameFragmentTest {
 
@@ -27,8 +35,11 @@ class GameFragmentTest {
         player_2_name_key to player2Name
     )
 
+    private val dispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setUp() {
+        Dispatchers.setMain(dispatcher)
         navController = TestNavHostController(
             ApplicationProvider.getApplicationContext()
         )
@@ -84,7 +95,7 @@ class GameFragmentTest {
     }
 
     @Test
-    fun should_show_player_won_the_game_alert() {
+    fun should_show_player_won_the_game_alert() = runBlockingTest {
 
         onScreen<GameScreen> {
             gameRecyclerView {
@@ -96,6 +107,7 @@ class GameFragmentTest {
                     }
                 }
             }
+            dispatcher.advanceUntilIdle()
             alertDialog {
                 isDisplayed()
                 message {
@@ -155,6 +167,62 @@ class GameFragmentTest {
         }
     }
 
+    @Test
+    fun test_with_random_clicks_on_the_cells_after_game_is_finished() = runBlockingTest {
+        onScreen<GameScreen> {
+            gameRecyclerView {
+                childAt<GameScreen.Item>(0) {
+                    itemView {
+                        click()
+                    }
+                }
+                childAt<GameScreen.Item>(3) {
+                    itemView {
+                        click()
+                    }
+                }
+                childAt<GameScreen.Item>(1) {
+                    itemView {
+                        click()
+                    }
+                }
+                childAt<GameScreen.Item>(4) {
+                    itemView {
+                        click()
+                    }
+                }
+                childAt<GameScreen.Item>(2) {
+                    itemView {
+                        click()
+                    }
+                }
+                childAt<GameScreen.Item>(5) {
+                    itemView {
+                        click()
+                        hasEmptyText()
+                    }
+                }
+            }
+            dispatcher.advanceUntilIdle()
+            alertDialog {
+                isDisplayed()
+                message {
+                    isDisplayed()
+                    hasText("Name1 Won the game!")
+                }
+                positiveButton {
+                    isDisplayed()
+                    hasText(R.string.ok_btn_label)
+                    click()
+                }
+            }
+        }
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+    }
 
     companion object {
         const val player1Name = "Name1"

@@ -20,12 +20,17 @@ class GameViewModel(private val board: Board) : ViewModel() {
     private var playerTurn = 0
     private var playerNames = arrayListOf<String>()
 
+    private var isGameInProgress = true
+
     fun initializePlayerNames(player1: String, player2: String) {
         playerNames.add(player1)
         playerNames.add(player2)
     }
 
     fun updateBoard(position: Int) {
+        if (!isGameInProgress) {
+            return
+        }
         playerTurn = board.getCurrentPlayerTurn()
         board.updateCellsValue(position)
         postGameStateInProgress(position)
@@ -56,6 +61,7 @@ class GameViewModel(private val board: Board) : ViewModel() {
     }
 
     private fun postGameStateResult(message: String) {
+        isGameInProgress = false
         viewModelScope.launch {
             delay(30L)
             _gameState.postValue(GameState.Result(message))
@@ -68,6 +74,7 @@ class GameViewModel(private val board: Board) : ViewModel() {
             board.cellsValue.add(VALUE_0)
         }
         board.playerTurn = INDEX_0
+        isGameInProgress = true
     }
 
     companion object {
