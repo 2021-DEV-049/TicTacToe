@@ -150,4 +150,22 @@ class EntryFragmentTest {
         }
         assertThat(navController.currentDestination?.id).isEqualTo(R.id.gameFragment)
     }
+
+    @Test
+    fun should_not_be_able_to_enter_characters_more_than_12() {
+        onScreen<EntryScreen> {
+            tilPlayer1 {
+                edit {
+                    typeText("charactergreaterthan12")
+                    hasText("charactergre")
+                }
+            }
+            tilPlayer2 {
+                edit {
+                    typeText("charactergreaterthan12")
+                    hasText("charactergre")
+                }
+            }
+        }
+    }
 }
