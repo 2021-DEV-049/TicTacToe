@@ -33,7 +33,7 @@ Rules & Requirements: [TTT Rules and Requirements](https://github.com/stephane-g
  git clone https://github.com/2021-DEV-049/TicTacToe.git
 ```
 
-# Runnins App
+# Running App
 
 - open the app in android studio
 - do a gradle build to install all the dependencies
