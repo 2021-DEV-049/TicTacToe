@@ -33,16 +33,23 @@ class NavigationTest {
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
 
-        onView(ViewMatchers.withId(R.id.et_player1)).perform(typeText("Dinesh"))
+        onView(ViewMatchers.withId(R.id.et_player1)).perform(typeText(player1Value))
         onView(ViewMatchers.withId(R.id.et_player2)).perform(
-            typeText("Logan"),
+            typeText(player2Value),
             closeSoftKeyboard()
         )
         onView(ViewMatchers.withId(R.id.play_btn)).perform(ViewActions.click())
 
         assertThat(navController.currentDestination?.id).isEqualTo(R.id.gameFragment)
         val currentDestinationArgs = navController.currentBackStackEntry?.arguments
-        assertThat(currentDestinationArgs?.getString("player1Name")).isEqualTo("Dinesh")
-        assertThat(currentDestinationArgs?.getString("player2Name")).isEqualTo("Logan")
+        assertThat(currentDestinationArgs?.getString(player1_name_key)).isEqualTo(player1Value)
+        assertThat(currentDestinationArgs?.getString(player2_name_key)).isEqualTo(player2Value)
+    }
+
+    companion object {
+        const val player1_name_key = "player1Name"
+        const val player2_name_key = "player2Name"
+        const val player1Value = "Name1"
+        const val player2Value = "Name2"
     }
 }
