@@ -17,7 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-
 @ExperimentalCoroutinesApi
 class GameViewModelTest {
 
@@ -46,14 +45,14 @@ class GameViewModelTest {
         val gameStateObserver = spyk<Observer<GameState>>()
         viewModel.gameState.observeForever(gameStateObserver)
 
-        viewModel.initializePlayerNames(player1 = "Player1", player2 = "Player2")
+        viewModel.initializePlayerNames(player1 = Player1, player2 = Player2)
         viewModel.updateBoard(0)
 
         dispatcher.advanceUntilIdle()
 
         verifyOrder {
             gameStateObserver.onChanged(GameState.InProgress(0, "X"))
-            gameStateObserver.onChanged(GameState.Result("Player1 Won the game!"))
+            gameStateObserver.onChanged(GameState.Result(Player_Winning_Msg))
         }
     }
 
@@ -72,5 +71,11 @@ class GameViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
+    }
+
+    companion object {
+        const val Player1 = "Avatar1"
+        const val Player2 = "Avatar2"
+        const val Player_Winning_Msg = "Avatar1 Won the game!"
     }
 }
